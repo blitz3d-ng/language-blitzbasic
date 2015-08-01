@@ -1,0 +1,290 @@
+".source.blitzmax":
+  "Clean Build":
+    prefix: "clean"
+    body: "'buildopt: clean"
+  "Console Application":
+    prefix: "console"
+    body: "'buildopt: console"
+  Debug:
+    prefix: "debug"
+    body: "'buildopt: debug"
+  "Event Loop":
+    prefix: "pollevent"
+    body: '''
+      While PollEvent() <> 0
+      	$1
+      Wend
+    '''
+  "For .. EachIn":
+    prefix: "eachin"
+    body: '''
+      For ${1:Local iter:Object} = EachIn ${2:Collection}
+      	$3
+      Next
+    '''
+  "For .. Until":
+    prefix: "foru"
+    body: '''
+      For ${1:Local iter:Int} = ${2:0} Until ${3:100}${4/.+/ Step /}${4:1}
+      	$5
+      Next
+    '''
+  "For .. Next":
+    prefix: "for"
+    body: '''
+      For ${1:Local iter:Int} = ${2:0} To ${3:100}${4/.+/ Step /}${4:1}
+      	$5
+      Next
+    '''
+  Function:
+    prefix: "func"
+    body: '''
+      Function ${1:Name}${2/^([\\!\\@\\#$\\%].*)|(.+)/(?2:\\:)/}${2:Int}($3)
+      	$0
+      End Function
+    '''
+  "GUI Application":
+    prefix: "gui"
+    body: "'buildopt: gui"
+  "If .. EndIf":
+    prefix: "if"
+    body: '''
+      If ${1:True} Then
+      	$2
+      EndIf
+    '''
+  "Iterate String":
+    prefix: "striter"
+    body: '''
+      For Local ${1:strIndex:Int} = 0 Until ${2:aString}.Length
+      	$0
+      Next
+    '''
+  "Iterate TMap":
+    prefix: "mapiter"
+    body: '''
+      For Local ${1:mapObj:Object} = EachIn ${2:map}.Values()
+      	$0
+      Next
+    '''
+  Library:
+    prefix: "library"
+    body: '''
+      'buildopt: library
+      
+    '''
+  "Module x.y":
+    prefix: "module"
+    body: "Module ${1:x}.${2:y}"
+  "ModuleInfo \"…\"":
+    prefix: "info"
+    body: "ModuleInfo \"$1\""
+  "New TList":
+    prefix: "tlist"
+    body: "Local ${1:list}:TList = New TList"
+  "New TMap":
+    prefix: "tmap"
+    body: "Local ${1:map}:TMap = New TMap"
+  Release:
+    prefix: "release"
+    body: "'buildopt: release"
+  "Repeat .. Forever":
+    prefix: "forever"
+    body: '''
+      Repeat
+      	$0
+      Forever
+    '''
+  "Repeat ... Until cond":
+    prefix: "until"
+    body: '''
+      Repeat
+      	${0:}
+      Until ${1:True}
+    '''
+  "Run After Build":
+    prefix: "exec"
+    body: '''
+      'buildopt: execute
+      
+    '''
+  Select:
+    prefix: "select"
+    body: '''
+      Select ${1:Variable}
+      	Case ${2:True}
+      		$3
+      	Default
+      		$4
+      End Select
+    '''
+  "String.FromCString(..)":
+    prefix: "strz"
+    body: "String.FromCString($1)"
+  "String.FromWString(..)":
+    prefix: "strw"
+    body: "String.FromWString($1)"
+  Threaded:
+    prefix: "threads"
+    body: "'buildopt: threads"
+  Verbose:
+    prefix: "verbose"
+    body: "'buildopt: verbose"
+  While:
+    prefix: "while"
+    body: '''
+      While ${1:True}
+      	$2
+      Wend
+    '''
+".source.blitzmax .meta.extern.blitzmax":
+  "Extern Function":
+    prefix: "func"
+    body: "Function ${1:Name}${2/^([\\!\\@\\#$\\%].*)|(.+)/(?2:\\:)/}${2:Int}($3)${4/.+/=\"}$4${4/.+/\"}"
+  "Extern Type":
+    prefix: "type"
+    body: '''
+      Type ${1:TTypeName}${2/.+/ Extends /}$2
+      	$0
+      End Type
+    '''
+".source.blitzmax .meta.type.extern.blitzmax":
+  "Extern Method":
+    prefix: "method"
+    body: "Method ${1:Name}${2/^([\\!\\@\\#$\\%].*)|(.+)/(?2:\\:)/}${2:Int}($3)"
+".source.blitzmax:not(.meta.type.blitzmax:not(.meta.function.blitzmax))":
+  Extern:
+    prefix: "extern"
+    body: '''
+      Extern${1/.+/ "/}$1${1/.+/"/}
+      	$0
+      End Extern
+    '''
+  "Hook Function":
+    prefix: "hook"
+    body: '''
+      Function ${1:Name}:Object( id%, data:Object, context:Object )	$0
+      
+      	Return data
+      End Function
+      AddHook( ${2:EmitEventHook}, $1, ${3:Null}, ${4:0} )
+    '''
+  "Type w/ Create":
+    prefix: "typec"
+    body: '''
+      Type ${1:TTypeName}${2/.+/ Extends /}${2:}
+      	
+      	Function Create:$1($3)
+      		Local ${4:n${1/(.+)/\\L$1/}}:$1 = New $1
+      		
+      		Return $4
+      	End Function
+      	
+      End Type
+    '''
+  Type:
+    prefix: "type"
+    body: '''
+      Type ${1:TTypeName}${2/.+/ Extends /}${2:}
+      	$0
+      End Type
+    '''
+".source.blitzmax .meta.type.blitzmax":
+  "Field with Getter and Setter":
+    prefix: "rw"
+    body: '''
+      Field ${1:name}${2/^([:\\!\\@\\#$\\%].*)|^(:)|(.+)/(?3:\\::)/}${2:Int}
+      
+      Method ${3:Set${1/^_*(.+)_*$/\\u$1/}(${1/^_*(.+)_*$/$1/}}${2/^([:\\!\\@\\#$\\%].*)|^(:)|(.+)/(?3:\\:)/}$2)
+      	Self.$1 = ${1/^_*(.+)_*$/$1/}
+      End Method
+      
+      Method ${4:Get${1/^_*(.+)_*$/\\u$1/}}${2/^([:\\!\\@\\#$\\%].*)|^(:)|(.+)/(?3:\\:)/}$2()
+      	Return Self.$1
+      End Method
+    '''
+  "Field with Getter":
+    prefix: "r"
+    body: '''
+      Field ${1:name}${2/^([:\\!\\@\\#$\\%].*)|^(:)|(.+)/(?3:\\::)/}${2:Int}
+      
+      Method ${3:Get${1/^_*(.+)_*$/\\u$1/}}${2/^([:\\!\\@\\#$\\%].*)|^(:)|(.+)/(?3:\\:)/}$2()
+      	Return Self.$1
+      End Method
+    '''
+  "Field with Setter":
+    prefix: "w"
+    body: '''
+      Field ${1:name}${2/^([:\\!\\@\\#$\\%].*)|^(:)|(.+)/(?3:\\::)/}${2:Int}
+      
+      Method ${3:Set${1/^_*(.+)_*$/\\u$1/}(${1/^_*(.+)_*$/$1/}}${2/^([:\\!\\@\\#$\\%].*)|^(:)|(.+)/(?3:\\:)/}$2)
+      	Self.$1 = ${1/^_*(.+)_*$/$1/}
+      End Method
+    '''
+".source.blitzmax:not(.meta.extern.blitzmax:not(.meta.type.blitzmax))":
+  "Framework A.B":
+    prefix: "frame"
+    body: "Framework ${1:Brl}.${2:Blitz}"
+  "Import \"..\"":
+    prefix: "imp"
+    body: "Import \"${1:file.bmx}\"$0"
+  "Import A.B":
+    prefix: "Imp"
+    body: "Import ${1:Brl}.${2:Blitz}"
+  "Include \"..\"":
+    prefix: "inc"
+    body: "Include \"${1:file.bmx}\"$0"
+".source.blitzmax .meta.type.blitzmax:not(.meta.function.blitzmax:not(.meta.function.method.blitzmax))":
+  "Method Compare":
+    prefix: "compare"
+    body: '''
+      Method Compare:Int( other:Object )
+      	${1:Return Super.Compare(other)}
+      End Method
+    '''
+  "Method Delete":
+    prefix: "delete"
+    body: '''
+      Method Delete()
+      	$0
+      End Method
+    '''
+  "Method New":
+    prefix: "new"
+    body: '''
+      Method New()
+      	$0
+      End Method
+    '''
+  "Method SendMessage":
+    prefix: "sendmessage"
+    body: '''
+      Method SendMessage:Object( message:Object, context:Object )
+      	${1:Return Super.SendMessage( message, context )}
+      End Method
+    '''
+  Method:
+    prefix: "method"
+    body: '''
+      Method ${1:Name}${2/^([\\!\\@\\#$\\%].*)|(.+)/(?2:\\:)/}${2:Int}($3)
+      	$0
+      End Method
+    '''
+".source.blitzmax:not(.comment.block.blitzmax)":
+  "Rem .. EndRem":
+    prefix: "rem"
+    body: '''
+      Rem
+      	$0
+      EndRem
+    '''
+".source.blitzmax:not(.meta.extern.blitzmax)":
+  "Try .. Catch":
+    prefix: "try"
+    body: '''
+      Try
+      	$2
+      Catch ${1:exception:Object}
+      	$0
+      EndTry
+    '''

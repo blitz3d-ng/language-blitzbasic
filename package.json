@@ -1,0 +1,13 @@
+{
+  "name": "language-blitzmax",
+  "version": "0.0.1",
+  "description": "BlitzMax package for Atom (converted from TM Bundle)",
+  "keywords": [
+  ],
+  "repository": "https://github.com/terramultimedia/language-blitzmax",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}

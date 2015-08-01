@@ -1,0 +1,27 @@
+".source.blitzmax .meta.extern.blitzmax":
+  editor:
+    increaseIndentPattern: "(?xi)^\\s*\\b(?<!end|end\\s)(extern|type)\\b"
+    decreaseIndentPattern: "(?xi)^\\s*\\bend\\s*(extern|type)\\b"
+".source.blitzmax:not(.source.blitzmax .comment)":
+  editor:
+    increaseIndentPattern: '''
+      (?xi)
+      	^\\s*(
+      		(?<!end|end\\s)(function|method|type|select|while|extern|try|if) |
+      		else|else\\s*if |
+      		for | catch | repeat
+      	)\\b
+    '''
+    decreaseIndentPattern: '''
+      (?xi)
+      	^\\s*(
+      	# end <keyword>
+      		end\\s*(function|method|type|select|while|extern|if|try) |
+      	# else/if
+      		else | else\\s*if |
+      		catch | wend | until | forever | next
+      	)\\b
+    '''
+".source.blitzmax":
+  editor:
+    commentStart: "' "
