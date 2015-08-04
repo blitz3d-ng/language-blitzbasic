@@ -13,12 +13,13 @@ The original README is kept as README_old.textile<br/>
 3. Give feedback and fork it to make it better :D
 
 ## Using build Package with BlitzMax
-- Using build Package to build Application inside Atom
-- runs "bmk"  
-- Error Matching moves Coursor to line, where compiling error occured
+Features:<br/>
+- executes "bmk" Commands in Shell
+- define own Shortcuts to get compiler settings you need
+- Error Matching moves coursor to file and position in line where the error message states
 
 ###Temporary solution:<br/>
-1. Install Package: "build" (by noseglide)<br/>
+1. Within Atom install package: "build" (by noseglide)<br/>
 2. Create a file named ".atom-build.json" in your project-root folder and copy&paste following content:<br/>
 (You may have to modify the path to your BlitzMax installtion to make it work on your machine)<br/>
 <pre>{
@@ -32,7 +33,7 @@ The original README is kept as README_old.textile<br/>
     }
   }
 }</pre>
-3. When hitting cmd+alt+b / crtl+alt+b (win) you bmx should be build as an console app, cmd+alt+g as an gui app (see keymap statement in file above)
+3. When hitting cmd+alt+b / crtl+alt+b (win) you bmx should be build as an console app, cmd+alt+g as an gui app (see keymap statement in file above - customize it!)
 
 ##Your help needed
-Feel free to modify these files and make this package better!<br/> But please: create a pull request etc. to let everybody profitate by the enhancements!
+Feel free to modify these files and make this package better!<br/> But please: create a pull request etc. to let everybody benefit by the enhancements!
