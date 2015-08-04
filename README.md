@@ -3,6 +3,8 @@ A Conversion of the BlitzMax TextMate Bundle by nilium (https://github.com/niliu
 Original project here: https://github.com/nilium/blitzmax.tmbundle<br/>
 The original README is kept as README_old.textile<br/>
 <br/>
+![Screenshot of BlitzMax File in Atom Editor](http://www.terramultimedia.de/cms/images/projekte/media/atomblitzmax.jpg)<br/>
+*Screenshot of a BlitzMax file in Atom Editor*<br/>
 ## Manual Installation
 1. Install Atom Editor from [atom.io](https://atom.io)
 2. Download [repository as .zip](https://github.com/terramultimedia/language-blitzmax/archive/master.zip) and extract *language-blitzmax* - Folder into packages on your machine.<br/>
